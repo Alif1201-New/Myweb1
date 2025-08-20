@@ -1,14 +1,426 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="id">
 <head>
-  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" href="styles/style.css"/>
-  <title>Hello, World!</title>
+  <meta charset="UTF-8">
+  <title>ALIF UI</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+    }
+
+    /* HEADER */
+    .header {
+      width: 100%;
+      padding: 10px 8px;
+      display: flex;
+      justify-content: flex-end;
+      box-sizing: border-box;
+    }
+    .header button {
+      margin-left: 10px;
+      padding: 10px 10px;
+      border: none;
+      background-color: #f2f2f2;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .header button:hover {
+      background-color: grey;
+    }
+
+    /* LOGO */
+    .logo {
+      font-size: 150px;
+      font-weight: bold;
+      margin: 20px 0 20px;
+      text-align: center;
+    }
+    .logo span:nth-child(1) { color: black; }
+    .logo span:nth-child(2) { color: grey; }
+    .logo span:nth-child(3) { color: yellow; }
+    .logo span:nth-child(4) { color: red; }
+    .logo span:nth-child(5) { color: black; }
+    .logo span:nth-child(6) { color: green; }
+    .logo span:nth-child(7) { color: blue; }
+
+    /* SEARCH */
+    .search-box {
+      width: 100%;
+      max-width: 0px;
+      display: flex;
+      justify-content: center;
+      margin: auto;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 12px 20px;
+      border: 1px solid #dcdcdc;
+      border-radius: 24px;
+      font-size: 16px;
+      box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+      outline: none;
+    }
+
+    /* MODAL LOGIN/REGISTER */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      width: 500px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+      text-align: center;
+      position: relative;
+    }
+    .modal-content h2 { margin-bottom: 10px; }
+    .modal-content input {
+      width: 100%;
+      padding: 5px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .modal-content button {
+      width: 100%;
+      padding: 5px;
+      margin-top: 5px;
+      border: none;
+      background: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .modal-content button:hover { background: #45a049; }
+    .msg { margin-top: 10px; font-weight: bold; }
+    .hidden { display: none; }
+    .close {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      font-size: 50px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    /* MAIN CONTENT */
+    .page {
+      display: none;
+      padding: 50px;
+      text-align: center;
+    }
+    #mainContent h1 { color: #34A853; }
+  </style>
 </head>
 <body>
-  <h1>
-    Hello, World!
-  </h1>
+
+  <!-- HEADER -->
+  <div class="header" id="header">
+    <button onclick="alert('GTW')"><h1><b>Support</b></h1></button>
+    <button onclick="window.open('https://www.tiktok.com/@allliff1201?_t=ZS-8yxAdcvWgFj&_r=1', '_blank')">
+      <h1><b>Credit</b></h1>
+</button>
+    <button id="loginBtn"><h1><b>Login</b></h1></button>
+  </div>
+
+  <!-- HOMEPAGE -->
+  <div id="homePage">
+    <div class="logo">
+      <span>A</span><span>L</span><span>I</span><span>F</span><span> </span><span>U</span><span>I</span>
+    </div>
+  </div>
+
+  <!-- MODAL LOGIN / REGISTER -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <div id="auth-page">
+        <h1 id="form-title">Login</h1>
+        <input type="text" id="username" placeholder="Username">
+        <h1><input type="password" id="password" placeholder="Password"></h1>
+        <button onclick="submitForm()"><h2><b>Login</b></h2></button>
+        <button onclick="toggleForm()"><h2><b>Belum punya akun? Register</b></h2></button>
+        <p class="msg" id="message"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HALAMAN UTAMA -->
+  <div id="mainContent" class="page">
+    <h1 id="welcome"></h1>
+    <h1>👋👋 HAI Mau nyari funfact seputar WW2?</h1>
+    <h3>Tenang, di sini banyak funfact seputar WW2 ayo kita cari bersama!</h3>
+    <button style="background-color:green; color: white; padding 10px 20px ; border-radius: 50px"onclick="logout()"><h4>Logout</h4></button>
+
+    <div style="margin-top: 20px;">
+      <button style="background-color:black; color: white; padding 10px 20px ; border-radius: 50px"onclick="openPage('page1')"><h3>Sturmgewehr</h3></button>
+      <button style="background-color:black; color: white; padding 10px 20px ; border-radius: 50px"onclick="openPage('page2')"><h3>M1 Garand</h3></button>
+      <button style="background-color:black; color: white; padding 10px 20px ; border-radius: 50px"onclick="openPage('page3')"><h3>PPSh-41</h3></button>
+      <button style="background-color:black; color: white; padding 10px 20px ; border-radius: 50px"onclick="openPage('page4')"><h3>Thompson SMG </h3></button>
+      <button style="background-color:black; color: white; padding 10px 20px ; border-radius: 50px"onclick="openPage('page5')"><h3>Katana Jepang</h3></button>
+      <button style="background-color:black; color: white; padding 10px 20px ; border-radius: 50px"onclick="openPage('page6')"><h3>Sten Gun Inggris</h3></button>
+      <button style="background-color:black; color: white; padding 10px 20px ; border-radius: 50px"onclick="openPage('page7')"><h3>Panzerkampfwagen VI Tiger I</h3></button>
+      <button style="background-color:black; color: white; padding 10px 20px ; border-radius: 50px"onclick="openPage('page8')"><h3>Bazooka</h3></button>
+      <button style="background-color:black; color: white; padding 10px 20px ; border-radius: 50px"onclick="openPage('page8')"><h3>Molotov Cocktail</h3></button>
+      <button style="background-color:black; color: white; padding 10px 20px ; border-radius: 50px" onclick="openPage('page8')"><h3>Boneka Salju Bersenjata Trik Soviet</h3></button>
+      
+      
+      
+    </div>
+  </div>
+
+  <!-- PAGE1 -->
+  <div id="page1" class="page">
+    <h2>Sturmgewehr 44 (StG 44)</h2>
+    <p>Senapan Serbu Pertama di Dunia
+
+Fakta unik: StG 44 (Sturmgewehr artinya “senjata serbu”) adalah senapan serbu pertama di dunia yang benar-benar berfungsi.</p>
+
+      <img src="https://irongatearmory.com/wp-content/uploads/2021/04/1125C-StG-44-Assault-Rifle_00.jpg" alt="" width="100 px" height="100 px">
+      
+    <p>Spesifikasi: Menggunakan peluru 7.92×33mm Kurz, lebih kecil dari senapan standar tapi lebih besar dari pistol.
+
+Funfact: Adolf Hitler awalnya menolak proyek ini, menganggapnya buang-buang sumber daya. Namun setelah melihat performanya, ia langsung mendukung penuh.
+
+Pengaruh: Desainnya jadi inspirasi untuk AK-47 buatan Kalashnikov di Uni Soviet.
+</p>
+    <button onclick="goBack()"><h3>⬅ Kembali</h3></button>
+  </div>
+
+  <!-- PAGE2 -->
+  <div id="page2" class="page">
+    <h2>M1 Garand</h2>
+    <p>"Senjata yang Menang di Eropa"
+
+Fakta unik: Amerika Serikat adalah satu-satunya negara besar di WW2 yang membekali seluruh infantri dengan senapan semi-otomatis (M1 Garand).
+
+Spesifikasi: Kaliber .30-06 Springfield, kapasitas 8 peluru.
+
+Funfact: Setiap kali magazin kosong, senapan ini mengeluarkan suara khas “ping!”. Musuh kadang tahu tentara AS kehabisan peluru hanya dari suara itu.
+
+Kutipan: Jenderal George S. Patton menyebut M1 Garand sebagai “the greatest battle implement ever devised.”
+</p>
+    <button onclick="goBack()"><h3>⬅ Kembali</h3></button>
+  </div>
+
+  <!-- PAGE3 -->
+  <div id="page3" class="page">
+    <h2>PPSh-41</h2>
+    <p>“Penyembur Peluru” Soviet
+
+Fakta unik: Submachine gun paling terkenal Uni Soviet. Dijuluki “burp gun” oleh tentara Jerman karena suara tembakannya.
+
+Spesifikasi: Bisa menembak 900 peluru per menit. Menggunakan drum magazine 71 peluru atau box magazine 35 peluru.
+
+Funfact: Produksinya sangat massal – lebih dari 6 juta unit dibuat. Saking banyaknya, bahkan pasukan Jerman kadang menggunakan versi rampasan.
+</p>
+    <button onclick="goBack()"><h3>⬅ Kembali</h3></button>
+  </div>
+
+    <!-- PAGE4 -->
+  <div id="page4" class="page">
+    <h2>Thompson SMG </h2>
+    <p>“Tommy Gun”
+
+Fakta unik: Sebelum perang, Thompson sering dipakai gangster Amerika tahun 1920-an. Tapi di WW2, ia jadi senjata resmi militer AS.
+
+Spesifikasi: Kaliber .45 ACP, kecepatan tembak 600–725 peluru per menit.
+
+Funfact: Meski berat dan mahal dibanding SMG lain, Thompson terkenal di pasukan paratrooper dan marinir karena daya hancurnya besar di jarak dekat.</p>
+    <button onclick="goBack()"><h3>⬅ Kembali</h3></button>
+  </div>
+  
+    <!-- PAGE3 -->
+  <div id="page5" class="page">
+    <h2>Katana Jepang</h2>
+    <p>Tradisi yang Dibawa ke Perang Modern
+
+Fakta unik: Banyak perwira Jepang masih membawa katana, simbol kehormatan samurai.
+
+Funfact: Ada catatan bahwa beberapa tentara Jepang benar-benar melakukan serangan banzai dengan pedang, terutama saat amunisi habis.
+
+Uniknya: Banyak katana di WW2 bukan “katana kuno” tapi produksi massal, disebut guntō, dibuat dengan baja kualitas industri.</p>
+    <button onclick="goBack()"><h3>⬅ Kembali</h3></button>
+  </div>
+  
+    <!-- PAGE3 -->
+  <div id="page6" class="page">
+    <h2>Sten Gun Inggris</h2>
+    <p>Senapan Murah Meriah
+
+Fakta unik: Inggris menciptakan Sten karena kekurangan senjata setelah Dunkirk.
+
+Produksi: Bisa dibuat hanya dengan pipa baja, harganya sekitar $10 saja saat itu.
+
+Funfact: Saking sederhananya, Sten kadang macet atau bahkan bisa meledak sendiri kalau jatuh. Namun karena murah, senjata ini banyak diselundupkan untuk pasukan perlawanan (resistance) di Eropa.</p>
+    <button onclick="goBack()"><h3>⬅ Kembali</h3></button>
+  </div>
+  
+    <!-- PAGE3 -->
+  <div id="page7" class="page">
+    <h2>Panzerkampfwagen VI Tiger I</h2>
+    <p>Tank Legendaris
+
+Fakta unik: Tiger I adalah salah satu tank paling ditakuti di perang. Armor tebal dan meriam 88mm-nya bisa menghancurkan tank sekutu dari jarak jauh.
+
+Masalah: Sering mogok karena mesin terlalu kompleks. Kadang lebih banyak Tiger rusak karena kerusakan teknis daripada hancur di pertempuran.
+
+Funfact: Pasukan Sekutu kadang panik mendengar rumor ada “Tiger” di dekat mereka, padahal kadang hanya Panzer biasa.</p>
+    <button onclick="goBack()"><h3>⬅ Kembali</h3></button>
+  </div>
+  
+    <!-- PAGE3 -->
+  <div id="page8" class="page">
+    <h2>Bazooka</h2>
+    <p>Senjata Roket Pribadi
+
+Fakta unik: Senjata anti-tank pertama yang bisa dibawa satu orang.
+
+Inspirasi: Namanya berasal dari alat musik komedi bernama “bazooka” yang dimainkan oleh Bob Burns.
+
+Kelemahan: Versi awal sulit menembus armor tebal Tiger, tapi sangat efektif melawan kendaraan ringan.</p>
+    <button onclick="goBack()"><h3>⬅ Kembali</h3></button>
+  </div>
+  
+   <!-- PAGE3 -->
+   <div id="page8" class="page">
+    <h2>Molotov Cocktail</h2>
+    <p>Senjata Rakyat
+
+Fakta unik: Digunakan pertama kali oleh Finlandia melawan Soviet pada “Winter War” (1939–1940).
+
+Nama: Tentara Finlandia mengejek Menteri Luar Negeri Soviet Vyacheslav Molotov dengan menamai bom botol ini “Molotov Cocktail”.
+
+Funfact: Hanya bermodal bensin + botol kaca + kain, senjata ini jadi ikon perang gerilya di Eropa.</p>
+    <button onclick="goBack()"><h3>⬅ Kembali</h3></button>
+  </div>
+  
+   <!-- PAGE3 -->
+   <div id="page8" class="page">
+    <h2>Boneka Salju Bersenjata Trik Soviet</h2>
+    <p>Fakta unik: Saat musim dingin, tentara Soviet kadang menyembunyikan senapan mesin di balik boneka salju untuk menyergap musuh Jerman.
+
+Tujuan: Memberi ilusi bahwa area aman, padahal sudah dipasangi jebakan.
+
+Uniknya: Trik ini jarang dicatat resmi, tapi diceritakan dalam memoar veteran.</p>
+      <button onclick="goBack()"><h3>⬅ Kembali</h3></button>
+  </div>
+  
+  <!-- SCRIPT -->
+  <script>
+    let isLogin = true;
+
+    const loginBtn = document.getElementById("loginBtn");
+    const modal = document.getElementById("loginModal");
+    const closeModal = document.getElementById("closeModal");
+
+    // buka modal saat klik login
+    loginBtn.addEventListener("click", () => {
+      modal.style.display = "flex";
+    });
+    // tutup modal
+    closeModal.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+    window.addEventListener("click", function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+
+    // cek sesi login
+    window.onload = () => {
+      const user = localStorage.getItem("loggedInUser");
+      if (user) {
+        showHome(user);
+      }
+    };
+
+    function toggleForm() {
+      isLogin = !isLogin;
+      document.getElementById("form-title").innerText = isLogin ? "Login" : "Register";
+      document.querySelector("#auth-page button").innerText = isLogin ? "Login" : "Register";
+      document.querySelectorAll("#auth-page button")[1].innerText = isLogin ? "Belum punya akun? Register" : "Sudah punya akun? Login";
+      document.getElementById("message").innerText = "";
+    }
+
+    function submitForm() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const message = document.getElementById("message");
+
+      if (!username || !password) {
+        message.style.color = "red";
+        message.innerText = "❌ Username & Password wajib diisi!";
+        return;
+      }
+
+      if (isLogin) {
+        const storedPassword = localStorage.getItem(username);
+        if (storedPassword && storedPassword === password) {
+          localStorage.setItem("loggedInUser", username);
+          modal.style.display = "none";
+          showHome(username);
+        } else {
+          message.style.color = "red";
+          message.innerText = "❌ Username atau password salah!";
+        }
+      } else {
+        if (localStorage.getItem(username)) {
+          message.style.color = "red";
+          message.innerText = "❌ Username sudah dipakai!";
+        } else {
+          localStorage.setItem(username, password);
+          message.style.color = "green";
+          message.innerText = "✅ Registrasi berhasil! Silakan login.";
+          toggleForm();
+        }
+      }
+    }
+
+    function showHome(user) {
+      document.getElementById("homePage").style.display = "none";
+      document.getElementById("header").style.display = "none";
+      document.querySelectorAll(".page").forEach(p => p.style.display = "none");
+      document.getElementById("mainContent").style.display = "block";
+      document.getElementById("welcome").innerText = "Halo, " + user + " 👋";
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      document.getElementById("homePage").style.display = "block";
+      document.getElementById("header").style.display = "flex";
+      document.querySelectorAll(".page").forEach(p => p.style.display = "none");
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+      document.getElementById("message").innerText = "";
+      isLogin = true;
+      document.getElementById("form-title").innerText = "Login";
+      document.querySelector("#auth-page button").innerText = "Login";
+      document.querySelectorAll("#auth-page button")[1].innerText = "Belum punya akun? Register";
+    }
+
+    function openPage(pageId) {
+      document.getElementById("mainContent").style.display = "none";
+      document.querySelectorAll(".page").forEach(p => p.style.display = "none");
+      document.getElementById(pageId).style.display = "block";
+    }
+
+    function goBack() {
+      document.querySelectorAll(".page").forEach(p => p.style.display = "none");
+      document.getElementById("mainContent").style.display = "block";
+    }
+  </script>
 </body>
 </html>
